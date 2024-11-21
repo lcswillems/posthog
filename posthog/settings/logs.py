@@ -8,7 +8,9 @@ from posthog.settings.base_variables import DEBUG, TEST
 
 # Setup logging
 LOGGING_FORMATTER_NAME = os.getenv("LOGGING_FORMATTER_NAME", "default")
-DEFAULT_LOG_LEVEL = os.getenv("DJANGO_LOG_LEVEL", "ERROR" if TEST else "INFO")
+DJANGO_LOG_LEVEL = os.getenv("DJANGO_LOG_LEVEL", "ERROR" if TEST else "INFO").upper()
+
+logging.basicConfig(level=DJANGO_LOG_LEVEL)
 
 
 class FilterStatsd(logging.Filter):
@@ -83,9 +85,9 @@ LOGGING = {
             "class": "logging.NullHandler",
         },
     },
-    "root": {"handlers": ["console"], "level": DEFAULT_LOG_LEVEL},
+    "root": {"handlers": ["console"], "level": DJANGO_LOG_LEVEL},
     "loggers": {
-        "django": {"handlers": ["console"], "level": DEFAULT_LOG_LEVEL},
+        "django": {"handlers": ["console"], "level": DJANGO_LOG_LEVEL},
         "django.server": {"handlers": ["null"]},  # blackhole Django server logs (this is only needed in DEV)
         "django.utils.autoreload": {
             "handlers": ["null"],
