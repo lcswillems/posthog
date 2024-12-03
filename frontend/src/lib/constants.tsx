@@ -233,6 +233,7 @@ export const FEATURE_FLAGS = {
     WEB_ANALYTICS_WARN_CUSTOM_EVENT_NO_SESSION: 'web-analytics-warn-custom-event-no-session', // owner: @robbie-c #team-web-analytics
     TWO_FACTOR_UI: 'two-factor-ui', // owner: @zach
     SITE_DESTINATIONS: 'site-destinations', // owner: @mariusandra #team-cdp
+    ALWAYS_ENABLE_INSIGHT_REFRESH_LINK: 'always-enable-insight-refresh-link', // owner: @anders #team-experiments
 } as const
 export type FeatureFlagKey = (typeof FEATURE_FLAGS)[keyof typeof FEATURE_FLAGS]
 

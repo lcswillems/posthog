@@ -16,6 +16,7 @@ import {
 import { loaders } from 'kea-loaders'
 import { subscriptions } from 'kea-subscriptions'
 import api, { ApiMethodOptions } from 'lib/api'
+import { FEATURE_FLAGS } from 'lib/constants'
 import { dayjs } from 'lib/dayjs'
 import { featureFlagLogic } from 'lib/logic/featureFlagLogic'
 import { shouldCancelQuery, uuid } from 'lib/utils'
@@ -452,7 +453,7 @@ export const dataNodeLogic = kea<dataNodeLogicType>([
             },
         ],
     })),
-    selectors(({ cache }) => ({
+    selectors(({ cache, values }) => ({
         variableOverridesAreSet: [
             (_, p) => [p.variablesOverride ?? (() => ({}))],
             (variablesOverride) => !!variablesOverride,
@@ -608,7 +609,9 @@ export const dataNodeLogic = kea<dataNodeLogicType>([
             (nextAllowedRefresh: string | null, lastRefresh: string | null) => (): string => {
                 const now = dayjs()
                 let disabledReason = ''
-                if (!!nextAllowedRefresh && now.isBefore(dayjs(nextAllowedRefresh))) {
+                if (values.featureFlags[FEATURE_FLAGS.ALWAYS_ENABLE_INSIGHT_REFRESH_LINK]) {
+                    disabledReason = ''
+                } else if (!!nextAllowedRefresh && now.isBefore(dayjs(nextAllowedRefresh))) {
                     // If this is a saved insight, the result will contain nextAllowedRefresh, and we use that to disable the button
                     disabledReason = `You can refresh this insight again ${dayjs(nextAllowedRefresh).from(now)}`
                 } else if (
