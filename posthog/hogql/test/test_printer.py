@@ -1609,11 +1609,11 @@ class TestPrinter(BaseTest):
             f"FROM events WHERE equals(events.team_id, {self.team.pk}) LIMIT {MAX_SELECT_RETURNED_ROWS}"
         )
         assert context.values == {
-            "hogql_val_0": ["true", "false"],
+            "hogql_val_0": [1, 0],
             "hogql_val_1": [True, False],
-            "hogql_val_2": ["true", "false"],
+            "hogql_val_2": [1, 0],
             "hogql_val_3": [True, False],
-            "hogql_val_4": ["true", "false"],
+            "hogql_val_4": [1, 0],
             "hogql_val_5": [True, False],
         }
 
