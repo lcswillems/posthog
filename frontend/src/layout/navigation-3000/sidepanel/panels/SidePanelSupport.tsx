@@ -96,7 +96,7 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 }
 
 const SupportFormBlock = ({ onCancel }: { onCancel: () => void }): JSX.Element => {
-    const { supportPlans, hasSupportAddonPlan } = useValues(billingLogic)
+    // const { supportPlans, hasSupportAddonPlan } = useValues(billingLogic)
 
     return (
         <Section title="Email an engineer">
@@ -123,16 +123,23 @@ const SupportFormBlock = ({ onCancel }: { onCancel: () => void }): JSX.Element =
                 Cancel
             </LemonButton>
             <br />
-            <div className="grid grid-cols-2 border rounded [&_>*]:px-2 [&_>*]:py-0.5 mb-4 bg-bg-light pt-4">
+            <div className="grid grid-cols-1 border rounded [&_>*]:px-2 [&_>*]:py-0.5 mb-4 bg-bg-light pt-4">
                 <div className="col-span-full flex justify-between border-b bg-bg-white py-1">
-                    {/* If placing a support message, replace the line below with explanation */}
-                    <strong>Avg support response times</strong>
-                    <div>
+                    {/* When removing this support message, replace the line below with 'Avg. response time' and uncomment the following line */}
+                    <strong>Support during the holidays</strong>
+                    {/* <div>
                         <Link to={urls.organizationBilling([ProductKey.PLATFORM_AND_SUPPORT])}>Explore options</Link>
+                    </div> */}
+                    {/* When removing the support message, comment the following section out */}
+                    <div className="col-span-full px-2 py-1">
+                        <p>
+                            We're offering reduced support while we celebrate the holidays. Responses may be slower than normal and 
+                            we'll only respond to critical issues between the 25th and 27th of December. We'll resume regular support 
+                            and start responding to other messages on the 28th. Thanks for your patience!
+                        </p>
                     </div>
-                </div>
-                {/* If placing a support message, comment out (don't remove) the section below */}
-                {supportPlans?.map((plan) => {
+                {/* When removing the support message, uncncomment out the section below */}
+                {/* {supportPlans?.map((plan) => {
                     // If they have an addon plan, only show the addon plan
                     const currentPlan = plan.current_plan && (!hasSupportAddonPlan || plan.plan_key?.includes('addon'))
                     return (
@@ -151,7 +158,7 @@ const SupportFormBlock = ({ onCancel }: { onCancel: () => void }): JSX.Element =
                             </div>
                         </React.Fragment>
                     )
-                })}
+                })} */}
             </div>
         </Section>
     )
