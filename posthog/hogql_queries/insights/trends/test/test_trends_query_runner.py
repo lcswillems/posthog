@@ -2431,8 +2431,8 @@ class TestTrendsQueryRunner(ClickhouseTestMixin, APIBaseTest):
         assert response.series == [InsightActorsQuerySeries(label="$pageview", value=0)]
 
         assert response.breakdown == [
-            BreakdownItem(label="true", value="true"),
-            BreakdownItem(label="false", value="false"),
+            BreakdownItem(label="true", value="1"),
+            BreakdownItem(label="false", value="0"),
         ]
 
         runner = self._create_query_runner(
@@ -2450,8 +2450,8 @@ class TestTrendsQueryRunner(ClickhouseTestMixin, APIBaseTest):
 
         assert response.breakdowns is not None
         assert response.breakdowns[0].values == [
-            BreakdownItem(label="true", value="true"),
-            BreakdownItem(label="false", value="false"),
+            BreakdownItem(label="true", value="1"),
+            BreakdownItem(label="false", value="0"),
         ]
 
     def test_to_actors_query_options_breakdowns_histogram(self):
@@ -2663,8 +2663,8 @@ class TestTrendsQueryRunner(ClickhouseTestMixin, APIBaseTest):
             BreakdownItem(label='["",""]', value='["",""]'),
         ]
         assert response.breakdowns[2].values == [
-            BreakdownItem(label="true", value="true"),
-            BreakdownItem(label="false", value="false"),
+            BreakdownItem(label="true", value="1"),
+            BreakdownItem(label="false", value="0"),
         ]
 
     @patch("posthog.hogql.query.sync_execute", wraps=sync_execute)

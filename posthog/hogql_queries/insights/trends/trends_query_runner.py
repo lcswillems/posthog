@@ -565,7 +565,12 @@ class TrendsQueryRunner(QueryRunner):
                             continue
                         remapped_label = "none"
 
-                    formatted_breakdown_value = self._format_breakdown_label(remapped_label)
+                    remapped_label = self._format_breakdown_label(remapped_label)
+                    # Mirrors the frontend formatting
+                    if isinstance(remapped_label, list):
+                        formatted_breakdown_value = "::".join(remapped_label)
+                    else:
+                        formatted_breakdown_value = remapped_label
 
                     # If there's multiple series, include the object label in the series label
                     if real_series_count > 1:
@@ -1010,8 +1015,7 @@ class TrendsQueryRunner(QueryRunner):
                 else:
                     labels.append(label)
 
-            # Mirrors the frontend formatting
-            return "::".join(labels)
+            return labels
         return breakdown_value
 
     @cached_property
